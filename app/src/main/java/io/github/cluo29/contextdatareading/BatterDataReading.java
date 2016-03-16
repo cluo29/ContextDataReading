@@ -37,18 +37,19 @@ public class BatterDataReading extends Service {
         try {
 
             Log.d("Tester", "34");
-            final DataSource ds = new MysqlDataSource("awareframework.com", 3306, "Luo_661", "v9dNGeaK", "Luo_661");
+            final DataSource ds = new MysqlDataSource("awareframework.com", 3306, "Luo_661", "", "Luo_661");
             Log.d("Tester", "35");
-            final DataNoiser dn = new SimpleDataNoiser(1458126481750L, 3600000L, 0.3, 0.1, 0.4);
+            final DataNoiser dn = new SimpleDataNoiser(1391062684000L, 3600000L, 0.3, 0.1, 0.4);
             final AwareSimulator sim = new AwareSimulator(ds, dn, 1458126481750L, UUID.fromString("83bc93f4-e631-4007-b87f-9f0e47669537"));
             sim.setSpeed(100.0);
             Log.d("Tester", "39");
             sim.battery.addListener(new AwareSimulator.Listener<Battery>() {
                 public void onEvent(Battery event) {
-
+                    Log.d("Tester", "49");
                     Log.d("Tester", "Battery: " + event);
                 }
             });
+            sim.start();
 
         } catch (SQLException|ClassNotFoundException e) {
             Log.d("Tester", "48");

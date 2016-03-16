@@ -17,6 +17,8 @@
 
 package io.github.cluo29.contextdatareading;
 
+import android.util.Log;
+
 import io.github.cluo29.contextdatareading.table.*;
 import io.github.cluo29.contextdatareading.noisiness.DataNoiser;
 
@@ -61,6 +63,7 @@ public final class AwareSimulator {
          * @param source    A {@link DataSource.Source} of events of type {@link T}.
          */
         public EventsHandler(final DataSource.Source<T> source, final DataNoiser.Noiser<T> noiser) {
+            Log.d("Tester", "66");
             this.source = source;
             this.noiser = noiser;
             allHandlers.add(this);
@@ -83,6 +86,9 @@ public final class AwareSimulator {
 
         private void scheduleNext(final long currentTimestamp) {
             try {
+
+                Log.d("Tester", "90");
+
                 refill();
                 final T next = buffer.poll(0L, TimeUnit.MILLISECONDS);
 
@@ -100,6 +106,9 @@ public final class AwareSimulator {
         }
 
         private void publish(final T event) {
+
+            Log.d("Tester", "106");
+
             if (enabled.get())
                 for (final Listener<T> l : listeners)
                     l.onEvent(event);
@@ -131,7 +140,7 @@ public final class AwareSimulator {
     public AwareSimulator(final DataSource dataSource, final DataNoiser dataNoiser, final long startTimestamp, final UUID device) {
         this.startTimestamp = startTimestamp;
         this.device = device;
-
+        Log.d("Tester", "254");
 
         this.battery = new EventsHandler<Battery>(dataSource.battery(), dataNoiser.battery());
 
@@ -144,7 +153,7 @@ public final class AwareSimulator {
      * Starts the simulation. Should be called once only, all
      * subsequent calls will be ignored (with no exception thrown).
      *
-     * See the documentation for {@link AwareSimulator#AwareSimulator(DataSource, long, UUID)}
+     * See the documentation for
      * for details about timing, start time etc.
      */
     public void start() {
@@ -156,6 +165,8 @@ public final class AwareSimulator {
                     }
                 }, 0, TimeUnit.MILLISECONDS);
         }
+
+        Log.d("Tester", "169");
     }
 
     /**

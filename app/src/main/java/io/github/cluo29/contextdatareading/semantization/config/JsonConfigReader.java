@@ -1,6 +1,8 @@
 package io.github.cluo29.contextdatareading.semantization.config;
 
 
+import android.util.Log;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 
@@ -28,11 +30,14 @@ public class JsonConfigReader {
     private String readJsonFileFromPath() throws IOException {
         String result = "";
         try {
+            Log.d("Tester", "JSON33");
             File configFile = new File("C:\\Users\\tosh\\Documents\\Ania\\studia\\5 rok\\mobilne\\context-simulator2\\context-simulator2\\src\\resources\\json_configuration.json");
             InputStream stream= new FileInputStream(configFile);
             result = IOUtils.toString(stream);
+            Log.d("Tester", "JSON37");
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d("Tester", "JSON40");
         }
         return result;
     }
