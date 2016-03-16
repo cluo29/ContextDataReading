@@ -10,6 +10,7 @@ import android.app.Service;
 
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.StrictMode;
 import android.util.Log;
 
 import java.sql.SQLException;
@@ -26,15 +27,22 @@ public class BatterDataReading extends Service {
     @Override
     public void onCreate() {
 
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
         // read data file here
         try {
 
-            final DataSource ds = new MysqlDataSource("localhost", 3306, "root", "root", "aware");
-
-            final DataNoiser dn = new SimpleDataNoiser(1391062684000L, 3600000L, 0.3, 0.1, 0.4);
-            final AwareSimulator sim = new AwareSimulator(ds, dn, 1391062684000L, UUID.fromString("92d47d9d-a600-4309-b340-b58314c2e429"));
+            Log.d("Tester", "34");
+            final DataSource ds = new MysqlDataSource("awareframework.com", 3306, "Luo_661", "v9dNGeaK", "Luo_661");
+            Log.d("Tester", "35");
+            final DataNoiser dn = new SimpleDataNoiser(1458126481750L, 3600000L, 0.3, 0.1, 0.4);
+            final AwareSimulator sim = new AwareSimulator(ds, dn, 1458126481750L, UUID.fromString("83bc93f4-e631-4007-b87f-9f0e47669537"));
             sim.setSpeed(100.0);
+            Log.d("Tester", "39");
             sim.battery.addListener(new AwareSimulator.Listener<Battery>() {
                 public void onEvent(Battery event) {
 
@@ -43,7 +51,7 @@ public class BatterDataReading extends Service {
             });
 
         } catch (SQLException|ClassNotFoundException e) {
-
+            Log.d("Tester", "48");
             e.printStackTrace();
 
         }
