@@ -1,3 +1,7 @@
+//do two ways for intent data and database data reading
+//so have to get providers...
+
+
 package io.github.cluo29.contextdatareading;
 
 
